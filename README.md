@@ -59,14 +59,4 @@ You can override the automatic scaling and specify custom dimensions:
 * **`coa.svg`**: The original, high-resolution official vector SVG file downloaded from Wikimedia Commons.
 * **`README.md`**: This guide.
 
----
-
-## 💡 Setting the Active Workspace
-
-To explore, edit, or run this project more easily, you can set this directory as your active workspace in your editor:
-
-> **Active Workspace Path:**  
-> `/home/ms/.gemini/antigravity/scratch/furca_coa`
-
----
-*Created with 💛 for Košice and the beautiful history of Furča.*
+*Created with 💛 for Košice and the beautiful history of Furča.
