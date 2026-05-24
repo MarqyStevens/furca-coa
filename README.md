@@ -1,62 +1,36 @@
-# 🛡️ Furča Coat of Arms Terminal Renderer
+# Furča Coat of Arms - Terminal Renderer
 
-A highly accurate, interactive, and beautifully designed terminal graphics engine that renders the official **Coat of Arms of the Košice borough of Dargovských hrdinov** (famously known as **Furča**), located in Slovakia.
+A lightweight, zero-dependency Python script that renders the official Coat of Arms of the Košice borough Dargovských hrdinov (locally known as Furča) directly in the terminal.
 
-This engine utilizes the exact vector mathematics of the official SVG source file from Wikimedia Commons, projecting it onto a discrete terminal grid using advanced sub-pixel rendering (Unicode half-blocks) and full 24-bit ANSI TrueColor.
+The script uses the exact vector mathematics from the official SVG and projects it onto the terminal grid using Unicode half-blocks and 24-bit ANSI TrueColor.
 
----
+### The Coat of Arms & History
+Official heraldic description: *"V zlatom štíte tri čierne kliny"* (In a golden shield, three black wedges/piles).
+* **Symbolism:** The three wedges represent the steep slopes and ravines ("úvrate") of the hill the borough is built on. Colors are gold (#FDDA2A) and black (#111111).
+* **The Name "Furča":** While officially named after the WWII Battle of Dargov Pass, the historical colloquial name has two main theories:
+    1. *Latin origin:* From "furca" (fork), describing the fork-like shape of the forest from old Košice.
+    2. *Hungarian origin:* From "furcsa" (weird/strange), tied to old legends of bandit ambushes in the local woods.
 
-## 🎨 Symbolism & History
+### How to Run
+Written in pure Python. No external dependencies required.
 
-The coat of arms is defined in Slovak heraldry as:
-> **"V zlatom štíte tri čierne kliny"** *(In a golden shield, three black wedges/piles)*.
-
-### 📐 The Geometry
-* **The Three Black Wedges:** A stylized and geometric representation of the **"úvrate"** (ravines, steep slopes, or cuts) that carve into the hill upon which the borough is built.
-* **The Colors:** A striking contrast of gold (`#FDDA2A`) and deep charcoal black (`#111111`).
-
-### 📜 The Legends of "Furča"
-While the official name **Dargovských hrdinov** (Dargov Heroes) honors the fierce World War II Battle of Dargov Pass (January 1945), locals almost exclusively call the borough **Furča**. Two fascinating theories explain this name:
-1. **The Latin Theory (Historical):** Derived from the Latin *furca* (fork/vidlica). From old Košice, the forest atop the hill had a distinct fork-like shape. Medieval German settlers brought similar names (*Furche*, *Fourche*) from the Rhineland.
-2. **The Hungarian Theory (Folk Legend):** Derived from the Hungarian *furcsa* (strange/weird), stemming from old tales of mysterious occurrences and bandit ambushes in the deep forests.
-
----
-
-## 🚀 How to Run
-
-The renderer is written in pure Python with zero external dependencies, making it extremely lightweight and portable.
-
-### 1. Execute Directly
-Simply run the script. By default, it will **automatically detect your terminal window size** and scale the graphic to fit perfectly:
+**Basic scaling (auto-detects terminal size):**
 ```bash
 ./render_coa.py
 ```
 
-### 2. View History and Details
-To display the gorgeous, formatted historical details alongside the graphic, use the `--info` flag:
+**Display graphic with historical context:**
 ```bash
 ./render_coa.py --info
 ```
 
-### 3. Change Color Modes
-If your terminal doesn't support 24-bit color, the script supports robust fallbacks:
-* **TrueColor (Default):** `./render_coa.py --color-mode truecolor` (Stunning 24-bit RGB)
-* **256-Color ANSI:** `./render_coa.py --color-mode 256` (Great for older terminals)
-* **16-Color ANSI:** `./render_coa.py --color-mode 16` (Basic compatibility)
-* **Pure ASCII Art:** `./render_coa.py --color-mode ascii` (High contrast, no escape codes)
+**Color modes & fallbacks:**
+* `--color-mode truecolor` (Default 24-bit RGB)
+* `--color-mode 256` (Fallback for older terminals)
+* `--color-mode 16` (Basic ANSI)
+* `--color-mode ascii` (High contrast, no escape codes)
 
-### 4. Adjust Dimensions
-You can override the automatic scaling and specify custom dimensions:
+**Custom dimensions:**
 ```bash
 ./render_coa.py --width 50 --height 25
 ```
-
----
-
-## 📂 File Structure
-
-* **`render_coa.py`**: The core rendering engine, utilizing cubic Bezier formulas to project the shield and geometric wedges.
-* **`coa.svg`**: The original, high-resolution official vector SVG file downloaded from Wikimedia Commons.
-* **`README.md`**: This guide.
-
-*Created with 💛 for Košice and the beautiful history of Furča.
