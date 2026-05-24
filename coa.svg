@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="580" viewBox="0 0 500 580">
+  <defs>
+    <clipPath id="clip-path">
+      <path d="M497,330V3H3V330C3,466.414,113.586,577,250,577S497,466.414,497,330Z" fill="none"/>
+    </clipPath>
+  </defs>
+  <title>Coat of Arms of Dargovských hrdinov</title>
+  <g id="coa_dargovskych_hrdinov">
+    <path id="field" d="M500,330V0H0V330C0,468.071,111.929,580,250,580S500,468.071,500,330Z" fill="#fdda2a"/>
+    <g id="coa">
+      <g clip-path="url(#clip-path)">
+        <polyline points="0 580 0 560 83 5 166 560 250 5 335 560 417 5 500 560 500 580" fill="#111"/>
+      </g>
+    </g>
+    <path id="border" d="M497,330V3H3V330C3,466.414,113.586,577,250,577S497,466.414,497,330Z" fill="none" stroke="#111" stroke-width="6"/>
+  </g>
+</svg>
