@@ -659,8 +659,8 @@ def main():
     parser.add_argument(
         "--aa",
         type=int,
-        default=4,
-        help="Supersampling factor (NxN) for anti-aliasing in truecolor/pixel modes (default: 4, set 1 to disable).",
+        default=None,
+        help="Supersampling factor (NxN) for anti-aliasing (default: 1 for sharp text blocks, 4 for pixel/PNG modes).",
     )
     parser.add_argument(
         "--bg",
@@ -688,17 +688,19 @@ def main():
 
     args = parser.parse_args()
 
-    if args.aa < 1:
+    if args.aa is not None and args.aa < 1:
         parser.error("--aa must be >= 1")
     if args.color_mode == "ascii" and args.render_mode in ("quadrant", "sextant"):
         parser.error(f"--render-mode {args.render_mode} requires color output (cannot be used with --color-mode ascii)")
 
+    pixel_aa = 4 if args.aa is None else args.aa
+    text_aa = 1 if args.aa is None else args.aa
     draw_border = not args.no_border
 
     if args.save_png:
         px_w = args.pixel_width or 1000
         px_h = args.pixel_height or int(round(px_w * (580.0 / 500.0)))
-        rgba_rows = rasterize_rgba(px_w, px_h, draw_border=draw_border, ss=args.aa)
+        rgba_rows = rasterize_rgba(px_w, px_h, draw_border=draw_border, ss=pixel_aa)
         png_bytes = encode_png(px_w, px_h, rgba_rows)
         with open(args.save_png, "wb") as f:
             f.write(png_bytes)
@@ -729,7 +731,7 @@ def main():
         default_pw = 500 if args.render_mode == "sixel" else 1000
         px_w = args.pixel_width or default_pw
         px_h = args.pixel_height or int(round(px_w * (580.0 / 500.0)))
-        rgba_rows = rasterize_rgba(px_w, px_h, draw_border=draw_border, ss=args.aa)
+        rgba_rows = rasterize_rgba(px_w, px_h, draw_border=draw_border, ss=pixel_aa)
 
         if args.render_mode == "kitty":
             png_bytes = encode_png(px_w, px_h, rgba_rows)
@@ -744,13 +746,13 @@ def main():
         return
 
     if args.render_mode == "half":
-        graphic = render_half_block(width, height, args.color_mode, draw_border, ss=args.aa, bg_rgb=args.bg)
+        graphic = render_half_block(width, height, args.color_mode, draw_border, ss=text_aa, bg_rgb=args.bg)
     elif args.render_mode == "quadrant":
         graphic = render_subcell_grid(width, height, 2, 2, QUADRANT_CHARS, args.color_mode, draw_border)
     elif args.render_mode == "sextant":
         graphic = render_subcell_grid(width, height, 2, 3, SEXTANT_CHARS, args.color_mode, draw_border)
     else:
-        graphic = render_standard_block(width, height, args.color_mode, draw_border, ss=args.aa, bg_rgb=args.bg)
+        graphic = render_standard_block(width, height, args.color_mode, draw_border, ss=text_aa, bg_rgb=args.bg)
 
     print(graphic)
     print()

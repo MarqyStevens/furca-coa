@@ -14,13 +14,13 @@ Official heraldic description: *"V zlatom štíte tri čierne kliny"* (In a gold
 ### How to Run
 Written in pure Python. No external dependencies required.
 
-**Basic scaling (auto-detects terminal size, 4x4 anti-aliased TrueColor half-blocks):**
+**Basic scaling (auto-detects terminal size, sharp TrueColor half-blocks):**
 ```bash
 ./render_coa.py
 ```
 
 **Higher-density Unicode text modes (more pixels per terminal cell):**
-* `--render-mode half` (1×2 pixels/cell + 4×4 TrueColor anti-aliasing, default)
+* `--render-mode half` (1×2 pixels/cell, sharp by default)
 * `--render-mode quadrant` (2×2 = 4 pixels/cell, universal Unicode blocks)
 * `--render-mode sextant` (2×3 = 6 pixels/cell, Unicode 13 Legacy Computing blocks)
 * `--render-mode standard` (1×1 full blocks)
@@ -41,7 +41,7 @@ Written in pure Python. No external dependencies required.
 * `--color-mode 256` (Fallback for older terminals)
 * `--color-mode 16` (Basic ANSI)
 * `--color-mode ascii` (High contrast, no escape codes)
-* `--aa 4` (NxN supersampling factor; `--aa 1` disables anti-aliasing)
+* `--aa 4` (NxN supersampling factor; defaults to `1` for sharp text blocks and `4` for pixel/PNG modes)
 * `--bg #1e1e2e` (Blend the outer shield border into a known terminal background color)
 
 **Custom dimensions:**
