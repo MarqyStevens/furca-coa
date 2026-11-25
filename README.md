@@ -1,8 +1,8 @@
 # Furča Coat of Arms - Terminal Renderer
 
-A lightweight, zero-dependency Python script that renders the official Coat of Arms of the Košice borough Dargovských hrdinov (locally known as Furča) directly in the terminal.
+A lightweight, zero-dependency Python script that renders the official Coat of Arms of the Košice borough Dargovských hrdinov (locally known as Furča) directly in the terminal or as a high-res PNG.
 
-The script uses the exact vector mathematics from the official SVG and projects it onto the terminal grid using Unicode half-blocks and 24-bit ANSI TrueColor.
+The script uses the exact vector mathematics from the official SVG and renders it with anti-aliased TrueColor sub-blocks, dense Unicode block grids, or native terminal pixel protocols.
 
 ### The Coat of Arms & History
 Official heraldic description: *"V zlatom štíte tri čierne kliny"* (In a golden shield, three black wedges/piles).
@@ -14,23 +14,39 @@ Official heraldic description: *"V zlatom štíte tri čierne kliny"* (In a gold
 ### How to Run
 Written in pure Python. No external dependencies required.
 
-**Basic scaling (auto-detects terminal size):**
+**Basic scaling (auto-detects terminal size, 4x4 anti-aliased TrueColor half-blocks):**
 ```bash
 ./render_coa.py
 ```
+
+**Higher-density Unicode text modes (more pixels per terminal cell):**
+* `--render-mode half` (1×2 pixels/cell + 4×4 TrueColor anti-aliasing, default)
+* `--render-mode quadrant` (2×2 = 4 pixels/cell, universal Unicode blocks)
+* `--render-mode sextant` (2×3 = 6 pixels/cell, Unicode 13 Legacy Computing blocks)
+* `--render-mode standard` (1×1 full blocks)
+
+**True high-res pixel protocols & PNG export:**
+* `--render-mode kitty` (Kitty / Ghostty / WezTerm / Konsole inline PNG)
+* `--render-mode iterm2` (iTerm2 / WezTerm inline PNG)
+* `--render-mode sixel` (xterm / Foot / WezTerm / Windows Terminal Sixel raster)
+* `--save-png furca.png --pixel-width 2000` (save a transparent anti-aliased PNG)
 
 **Display graphic with historical context:**
 ```bash
 ./render_coa.py --info
 ```
 
-**Color modes & fallbacks:**
+**Color modes & anti-aliasing:**
 * `--color-mode truecolor` (Default 24-bit RGB)
 * `--color-mode 256` (Fallback for older terminals)
 * `--color-mode 16` (Basic ANSI)
 * `--color-mode ascii` (High contrast, no escape codes)
+* `--aa 4` (NxN supersampling factor; `--aa 1` disables anti-aliasing)
+* `--bg #1e1e2e` (Blend the outer shield border into a known terminal background color)
 
 **Custom dimensions:**
 ```bash
 ./render_coa.py --width 50 --height 25
+./render_coa.py --render-mode sextant --width 80
+./render_coa.py --render-mode kitty --pixel-width 1500
 ```
